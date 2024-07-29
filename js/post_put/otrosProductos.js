@@ -66,7 +66,7 @@ formNuevoProducto.addEventListener("submit", async (event) => {
 
 
 
-  let url = "http://localhost:8080/api/productos/admin";
+  let url = "http://localhost:8080/api_lueva/productos/admin";
   let method = 'POST';
 
   const productoData = {

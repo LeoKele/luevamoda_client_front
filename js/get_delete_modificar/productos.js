@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded',async()=>{
   //* Datos API
-  const API_URL = "http://localhost:8080/api/productos/admin?listado=1";
+  const API_URL = "http://localhost:8080/api_lueva/productos/admin?listado=1";
   const options = {
     method: "GET",
     headers: {
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
 
   //btns para descargar el json
   document.getElementById('btnIndex').addEventListener('click', async() =>{
-    const response = await fetch('http://localhost:8080/api/productos/index',options);
+    const response = await fetch('http://localhost:8080/api_lueva/productos/index',options);
     const data = await response.json();
     const productos = data;
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
   });
 
   document.getElementById('btnDetalle').addEventListener('click', async() =>{
-    const response = await fetch('http://localhost:8080/api/productos/detalle',options);
+    const response = await fetch('http://localhost:8080/api_lueva/productos/detalle',options);
     const data = await response.json();
     const productos = data;
 
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
       }).then(async (willDelete) => {
         if (willDelete) {
           try {
-            const response = await fetch(`http://localhost:8080/api/productos/admin?id=${productoId}`, {
+            const response = await fetch(`http://localhost:8080/api_lueva/productos/admin?id=${productoId}`, {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json'
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
           indicador.classList.remove("d-none");
 
           try {
-              const response = await fetch(`http://localhost:8080/api/productos/admin?id=${productoId}&listado=1`);
+              const response = await fetch(`http://localhost:8080/api_lueva/productos/admin?id=${productoId}&listado=1`);
               if (!response.ok) {
                   // lanzo una excepcion en caso de que no funcione el fetch, esto se ve en la consola
                   throw new Error('Error al obtener los datos del producto');

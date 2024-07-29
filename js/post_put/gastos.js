@@ -44,7 +44,7 @@ formNuevoGasto.addEventListener("submit", async (event) => {
 
 
 
-  let url = "http://localhost:8080/api/gastos";
+  let url = "http://localhost:8080/api_lueva/gastos";
   let method = 'POST';
 
   const gastoData = {

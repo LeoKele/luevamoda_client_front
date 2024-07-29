@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded',async()=>{
     //* Datos API
-    const API_URL = "http://localhost:8080/api/stock"; 
+    const API_URL = "http://localhost:8080/api_lueva/stock"; 
     const options = {
       method: "GET",
       headers: {
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
         }).then(async (willDelete) => {
           if (willDelete) {
             try {
-              const response = await fetch(`http://localhost:8080/api/stock?id=${id}`, {
+              const response = await fetch(`http://localhost:8080/api_lueva/stock?id=${id}`, {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
         indicador.classList.remove("d-none");
 
         try {
-            const response = await fetch(`http://localhost:8080/api/stock?id=${id}`);
+            const response = await fetch(`http://localhost:8080/api_lueva/stock?id=${id}`);
             if (!response.ok) {
                 // lanzo una excepcion en caso de que no funcione el fetch, esto se ve en la consola
                 throw new Error('Error al obtener los datos del registro');

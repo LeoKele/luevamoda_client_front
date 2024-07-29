@@ -26,7 +26,7 @@ formNuevaImagen.addEventListener("submit", async (event) => {
     //* Datos API
 
     
-    let url = "http://localhost:8080/api/imagenes";
+    let url = "http://localhost:8080/api_lueva/imagenes";
     let method = 'POST';
 
     const imgData = {

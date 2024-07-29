@@ -51,7 +51,7 @@ formNuevaVenta.addEventListener("submit", async (event) => {
 
 
 
-  let url = "http://localhost:8080/api/ventas";
+  let url = "http://localhost:8080/api_lueva/ventas";
   let method = 'POST';
 
   const ventaData = {

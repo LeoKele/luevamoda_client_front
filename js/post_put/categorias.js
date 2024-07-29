@@ -20,7 +20,7 @@ formNuevaCategoria.addEventListener("submit", async (event)=>{
 
     }
 
-    let url = "http://localhost:8080/api/categorias";
+    let url = "http://localhost:8080/api_lueva/categorias";
     let method = 'POST';
 
     const categoriaData = {
