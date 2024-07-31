@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
             }
             const data = await response.json();
             const categoriaUnica = data[0];
-            console.log(data);
+            // console.log(data);
             // son los id del formulario, como son unicos e irrepetibles dentro del html, sabe a quien insertarles los valores
             document.getElementById('id').value = categoriaUnica.id;
             document.getElementById('descripcion').value = categoriaUnica.descripcion;

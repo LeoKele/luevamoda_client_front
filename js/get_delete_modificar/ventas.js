@@ -36,14 +36,21 @@ document.addEventListener('DOMContentLoaded',async()=>{
       var fechaConvertida = convertirFecha(venta.fechaVenta);
       tdFecha.textContent = fechaConvertida;
   
-      const tdIdProducto = document.createElement("td"); //! Revisar overflow
+      const tdIdProducto = document.createElement("td");
       tdIdProducto.classList.add("p-2");
       tdIdProducto.textContent = venta.idProducto;
   
-      const tdNombre = document.createElement("td");
-      tdNombre.classList.add("p-2");
-      tdNombre.textContent = venta.nombre;
-  
+      const tdNombreProducto = document.createElement("td");
+      tdNombreProducto.classList.add("p-2");
+      tdNombreProducto.textContent = venta.nombreProducto;
+      
+      const tdIdCliente = document.createElement("td");
+      tdIdCliente.classList.add("p-2");
+      tdIdCliente.textContent = venta.idCliente;
+
+      const tdNombreCliente = document.createElement("td");
+      tdNombreCliente.classList.add("p-2");
+      tdNombreCliente.textContent = venta.nombreCliente;
       
       const tdCantidad = document.createElement("td");
       tdCantidad.classList.add("p-2");
@@ -57,9 +64,6 @@ document.addEventListener('DOMContentLoaded',async()=>{
       tdTotal.classList.add("p-2");
       tdTotal.textContent = `$${venta.total}`;
 
-      const tdGanancia = document.createElement("td");
-      tdGanancia.classList.add("p-2");
-      tdGanancia.textContent = `$${venta.ganancia}`;
 
 
       //Añadimos los botones de accion
@@ -83,11 +87,12 @@ document.addEventListener('DOMContentLoaded',async()=>{
       tr.appendChild(tdId);
       tr.appendChild(tdFecha);
       tr.appendChild(tdIdProducto);
-      tr.appendChild(tdNombre);
+      tr.appendChild(tdNombreProducto);
+      tr.appendChild(tdIdCliente);
+      tr.appendChild(tdNombreCliente);
       tr.appendChild(tdCantidad);
       tr.appendChild(tdPrecio);
       tr.appendChild(tdTotal);
-      tr.appendChild(tdGanancia);
       tr.appendChild(tdAccion);
       //Añadimos el tr al tbody
       tbody.appendChild(tr);
@@ -168,6 +173,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 document.getElementById('id').value = ventaUnica.id;
                 document.getElementById('fecha').value = ventaUnica.fechaVenta;
                 document.getElementById('idProducto').value = ventaUnica.idProducto;
+                document.getElementById('idCliente').value = ventaUnica.idCliente;
                 document.getElementById('cantidad').value = ventaUnica.cantidad;
                 document.getElementById('precio').value = ventaUnica.precioUnitario;
               

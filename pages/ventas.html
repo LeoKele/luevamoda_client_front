@@ -51,18 +51,24 @@
 
         <section class="mt-5">
             <form id="agregarVentas" class="row g-3" novalidate>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <input class="form-control d-none" type="text" name="id" id="id">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" id="fecha" class="form-control" name="fecha">
                     <span class="mensaje-error" id="mensajeFecha"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label for="idProducto" class="form-label">ID Producto</label>
                     <input type="text" id="idProducto" class="form-control" name="idProducto">
                     <span class="text-secondary">Recordá que el id debe ser de un producto existente.</span><br>
                     <span class="mensaje-error" id="mensajeIdProducto"></span>
                 </div>
+                <div class="col-md-4">
+                  <label for="idCliente" class="form-label">ID Cliente</label>
+                  <input type="text" id="idCliente" class="form-control" name="idCliente">
+                  <span class="text-secondary">Recordá que el id debe ser de un cliente existente.</span><br>
+                  <span class="mensaje-error" id="mensajeIdCliente"></span>
+              </div>
                 <div class="col-md-6">
                     <label for="cantidad" class="form-label">Cantidad</label>
                     <input type="text" id="cantidad" class="form-control" name="cantidad">
@@ -88,10 +94,11 @@
                         <th class="p-2">Fecha Venta</th>
                         <th class="p-2">ID Producto</th>
                         <th class="p-2">Nombre</th>
+                        <th class="p-2">ID Cliente</th>
+                        <th class="p-2">Nombre Cliente</th>
                         <th class="p-2">Cantidad</th> 
                         <th class="p-2">Precio Unitario</th>
                         <th class="p-2">Total</th>
-                        <th class="p-2">Ganancia</th>
                         <th class="p-2">Acciones</th>
                     </tr>
                 </thead>

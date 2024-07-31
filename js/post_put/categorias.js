@@ -44,17 +44,18 @@ formNuevaCategoria.addEventListener("submit", async (event)=>{
     try {
       const response = await fetch(url,options);
       if (!response.ok){
-        throw new Error('Error al guardar categoria');
+        const errorText = await response.text(); // Obtener el texto del error
+        throw new Error(errorText || 'Error al guardar categoria');
       }
       const responseData = await response.json();
       if (method === 'POST'){
         if (response.status !==201){//201 indica que se creo correctamente
           swal({
             title: "Error al guardar la categoria.",
-            text: "Por Favor, intente de nuevo más tarde",
+            text: responseData.message || 'Error desconocido',
             icon: "error",
           });
-          throw new Error('Error al guardar la categoria.');
+          throw new Error(responseData.message || 'Error al guardar la categoria.');
         }
         swal({
           title: "Categoria agregada correctamente",
@@ -66,15 +67,14 @@ formNuevaCategoria.addEventListener("submit", async (event)=>{
           }
         });
       } else {
-        console.log("put");
         //si es 200, el producto se modifico correctamente
         if (response.status !== 200){
           swal({
             title: "Error al modificar la categoria.",
-            text: "Por Favor, intente de nuevo más tarde",
+            text: responseData.message || "Por Favor, intente de nuevo más tarde",
             icon: "error",
           });
-          throw new Error('Error al modificar la categoria.');
+          throw new Error(responseData.message || 'Error al modificar la categoria.');
         }
         swal({
           title: "Categoria modificada correctamente",
@@ -90,7 +90,7 @@ formNuevaCategoria.addEventListener("submit", async (event)=>{
       console.log('Error: ', error);
       swal({
         title: "Error al agregar la categoria.",
-        text: "Por Favor, intente de nuevo más tarde",
+        text: error.message || "Por Favor, intente de nuevo más tarde",
         icon: "error",
       });
     }

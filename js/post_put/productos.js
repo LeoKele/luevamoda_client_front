@@ -4,19 +4,30 @@ const formNuevoProducto = document.getElementById('agregarProductos');
 formNuevoProducto.addEventListener("submit", async (event) => {
   event.preventDefault();
 
+  //recolectando los mensajes de error de index.html
+  var errorCliente = document.getElementById("mensajeCliente");
   var errorNombre = document.getElementById("mensajeNombre");
-  var errorDescripcion = document.getElementById("mensajeDescripcion");
+  var errorBusto = document.getElementById("mensajeBusto");
+  var errorCintura = document.getElementById("mensajeCintura");
+  var errorCadera = document.getElementById("mensajeCadera");
+  var errorPrecioBase = document.getElementById("mensajePrecioBase");
+  var errorPrecioDigital = document.getElementById("mensajePrecioDigital");
+  var errorPrecioCartulina = document.getElementById("mensajePrecioCartulina");
+  var errorTalles = document.getElementById("mensajeCantidadTalles")
   var errorCategoria = document.getElementById("mensajeCategoria");
-  var errorPrecio = document.getElementById("mensajePrecio");
-  var errorCosto = document.getElementById("mensajeCosto");
   var errorListado = document.getElementById("mensajeListado");
 
   function limpiarMensajes() {
+    errorCliente.textContent = "";
     errorNombre.textContent = "";
-    errorDescripcion.textContent = "";
+    errorBusto.textContent = "";
+    errorCintura.textContent = "";
+    errorCadera.textContent = "";
+    errorPrecioBase.textContent = ""; 
+    errorPrecioDigital.textContent = "";
+    errorPrecioCartulina.textContent = "";
+    errorTalles.textContent = ""; 
     errorCategoria.textContent = "";
-    errorPrecio.textContent = "";
-    errorCosto.textContent = "";
     errorListado.textContent = "";
   }
   limpiarMensajes();
@@ -24,39 +35,66 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   //* Validacion simple del form
   //Obtengo los valores de los campos
   const formData = new FormData(formNuevoProducto);
-  //Obtengo los valores de los inputs
+  //Obtengo los valores de los inputs del form
   const id = formData.get("id");
+  const cliente = formData.get('cliente');
   const nombre = formData.get("nombre");
-  const descripcion = formData.get("descripcion");
+  const busto = formData.get("busto");
+  const cintura = formData.get("cintura");
+  const cadera = formData.get("cadera");
+  const precioBase = formData.get("precioBase");
+  const precioDigital = formData.get("precioDigital");
+  const precioCartulina = formData.get("precioCartulina");
+  const talles = formData.get("cantidadTalles");
   const idCategoria = formData.get("idCategoria");
-  const precio = formData.get("precio");
-  const costo = formData.get("costo");
   const listado = formData.get("listado");
 
+  //validamos los valores de los inputs
+  const clienteValido = stringVacio(cliente);
   const nombreValido = stringVacio(nombre);
-  const descripcionValido = stringVacio(descripcion);
-  const precioValido = esFloat(precio);
+  const bustoValido = esInt(busto);
+  const cinturaValido = esInt(cintura);
+  const caderaValido = esInt(cadera);
+  const precioBaseValido = esFloat(precioBase);
+  const precioDigitalValido = esFloat(precioDigital);
+  const precioCartulinaValido = esFloat(precioCartulina);
+  const tallesValido = esInt(talles);
   const categoriaValido = esInt(idCategoria);
   const listadoValido = esTiny(listado);
-  const costoValido = esFloat(costo);
 
+  //validamos que todos los valores sean validos antes de hacer la peticion a la API
+  if (clienteValido || nombreValido || !bustoValido || !cinturaValido || !caderaValido || !precioBaseValido || !precioDigitalValido || !precioCartulinaValido || !categoriaValido || !tallesValido || !listadoValido) {
 
-  if (nombreValido || descripcionValido || !categoriaValido || !precioValido || !costoValido  || !listadoValido) {
+    clienteValido.textContent = !clienteValido
+      ? ""
+      : "Por favor, completa este campo";
     errorNombre.textContent = !nombreValido
       ? ""
       : "Por favor, completa este campo.";
-    errorDescripcion.textContent = !descripcionValido
-      ? ""
-      : "Por favor, completa este campo.";
+    errorBusto.textContent = bustoValido
+    ? ""
+    : "Por favor, ingresa un valor numerico para el busto.";
+    errorCintura.textContent = cinturaValido
+    ? ""
+    : "Por favor, ingresa un valor numerico para la cintura.";
+    errorCadera.textContent = caderaValido
+    ? ""
+    : "Por favor, ingresa un valor numerico para la cadera.";
+    errorPrecioBase.textContent = precioBaseValido
+    ? ""
+    : "Por favor, ingresa un valor numerico para el precio base.";
+    errorPrecioDigital.textContent = precioDigitalValido
+    ? ""
+    : "Por favor, ingresa un valor numerico para el precio digital.";
+    errorPrecioCartulina.textContent = precioCartulinaValido
+    ? ""
+    : "Por favor, ingresa un valor numerico para el precio cartulina.";
     errorCategoria.textContent = categoriaValido
       ? ""
-      : "Por favor, ingrese un número entero."; //! Deberia validar si existe un id de categoria con ese numero?
-    errorPrecio.textContent = precioValido
-      ? ""
-      : "Por favor, ingrese un número válido.";
-    errorCosto.textContent = costoValido
+      : "Por favor, ingrese un número entero.";
+    errorTalles.textContent = tallesValido
     ? ""
-    : "Por favor, ingrese un número válido.";
+    : "Por favor, ingresa un valor numerico para la cantidad de talles.";
     errorListado.textContent = listadoValido
       ? ""
       : "Por favor, ingrese un número válido"
@@ -69,15 +107,19 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   let method = 'POST';
 
   const productoData = {
+    cliente: cliente,
     nombre: nombre,
-    descripcion: descripcion,
     idCategoria: idCategoria,
-    precio: precio,
-    costo: costo,
+    medidaBusto: busto,
+    medidaCintura: cintura,
+    medidaCadera: cadera,
+    precioMoldeBase: precioBase,
+    precioMoldeDigital: precioDigital,
+    precioMoldeCartulina: precioCartulina,
+    cantidadTalles: talles,
     listado: listado
   };
 
-  console.log(id);
   if (id){
     
     productoData.id = id;
@@ -97,17 +139,18 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   try {
     const response = await fetch(url,options);
     if (!response.ok){
-      throw new Error('Error al guardar producto');
+      const errorText = await response.text(); // Obtener el texto del error
+      throw new Error(errorText ||'Error al guardar producto');
     }
     const responseData = await response.json();
     if (method === 'POST'){
       if (response.status !==201){//201 indica que se creo correctamente
         swal({
           title: "Error al guardar el producto.",
-          text: "Por Favor, intente de nuevo más tarde",
+          text: responseData.message || "Por Favor, intente de nuevo más tarde",
           icon: "error",
         });
-        throw new Error('Error al guardar el producto');
+        throw new Error(responseData.message || 'Error al guardar el producto');
       }
       swal({
         title: "Producto agregado correctamente",
@@ -124,10 +167,10 @@ formNuevoProducto.addEventListener("submit", async (event) => {
       if (response.status !== 200){
         swal({
           title: "Error al modificar el producto.",
-          text: "Por Favor, intente de nuevo más tarde",
+          text: responseData.message || "Por Favor, intente de nuevo más tarde",
           icon: "error",
         });
-        throw new Error('Error al modificar el producto');
+        throw new Error(responseData.message || 'Error al modificar el producto');
       }
       swal({
         title: "Producto modificado correctamente",
@@ -143,7 +186,7 @@ formNuevoProducto.addEventListener("submit", async (event) => {
     console.log('Error: ', error);
     swal({
       title: "Error al agregar el producto.",
-      text: "Por Favor, intente de nuevo más tarde",
+      text: error.message || "Por Favor, intente de nuevo más tarde",
       icon: "error",
     });
   }

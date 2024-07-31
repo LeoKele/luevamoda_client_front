@@ -6,12 +6,14 @@ formNuevaVenta.addEventListener("submit", async (event) => {
 
   var errorFecha = document.getElementById("mensajeFecha");
   var errorIdProducto = document.getElementById("mensajeIdProducto");
+  var errorCliente = document.getElementById("mensajeIdCliente");
   var errorCantidad = document.getElementById("mensajeCantidad");
   var errorPrecio = document.getElementById("mensajePrecio");
 
   function limpiarMensajes() {
     errorFecha.textContent = "";
     errorIdProducto.textContent = "";
+    errorCliente.textContent = "";
     errorCantidad.textContent = "";
     errorPrecio.textContent = "";
   }
@@ -24,20 +26,25 @@ formNuevaVenta.addEventListener("submit", async (event) => {
   const id = formData.get("id");
   const fecha = formData.get("fecha");
   const idProducto = formData.get("idProducto");
+  const idCliente = formData.get("idCliente");
   const cantidad = formData.get("cantidad");
   const precio = formData.get("precio");
 
   const fechaValido = stringVacio(fecha);
   const idProductoValido = esInt(idProducto);
+  const idClienteValido = esInt(idCliente);
   const cantidadValido = esInt(cantidad);
   const precioValido = esFloat(precio)
 
 
-  if (fechaValido || !idProductoValido || !cantidadValido || !precioValido) {
+  if (fechaValido || !idProductoValido || !idClienteValido || !cantidadValido || !precioValido) {
     errorFecha.textContent = !fechaValido
       ? ""
       : "Por favor, completa este campo.";
     errorIdProducto.textContent = idProductoValido
+      ? ""
+      : "Por favor, completa este campo.";
+    errorCliente.textContent = idClienteValido
       ? ""
       : "Por favor, completa este campo.";
     errorCantidad.textContent = cantidadValido
@@ -57,11 +64,11 @@ formNuevaVenta.addEventListener("submit", async (event) => {
   const ventaData = {
     fechaVenta: fecha,
     idProducto: idProducto,
+    idCliente: idCliente,
     cantidad: cantidad,
     precioUnitario: precio
   };
 
-  console.log(id);
   if (id){
     
     ventaData.id = id;

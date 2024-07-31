@@ -50,58 +50,88 @@
         </div>
 
         <section class="mt-5">
-            <form id="agregarProductos" class="row g-3" novalidate>
-                <div class="col-md-6">
-                    <input class="form-control d-none" type="text" name="id" id="id">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" id="nombre" class="form-control" name="nombre">
-                    <span class="mensaje-error" id="mensajeNombre"></span>
-                </div>
-                <div class="col-md-6">
-                    <label for="descripcion" class="form-label">Descripcion</label>
-                    <input type="text" id="descripcion" class="form-control" name="descripcion">
-                    <span class="mensaje-error" id="mensajeDescripcion"></span>
-                </div>
-                <div class="col-md-3">
-                    <label for="idCategoria" class="form-label">ID Categoria</label>
-                    <input type="text" id="idCategoria" class="form-control" name="idCategoria">
-                    <span class="mensaje-error" id="mensajeCategoria"></span>
-                </div>
-                <div class="col-md-3">
-                    <label for="precio" class="form-label">Precio</label>
-                    <input type="text" id="precio" class="form-control" name="precio">
-                    <span class="mensaje-error" id="mensajePrecio"></span>
-                </div>
-                <div class="col-md-3">
-                  <label for="costo" class="form-label">Costo</label>
-                  <input type="text" id="costo" class="form-control" name="costo">
-                  <span class="mensaje-error" id="mensajeCosto"></span>
-              </div>
-                <div class="col-md-3">
-                    <label for="listado" class="form-label">Listado</label>
-                    <input type="text" id="listado" class="form-control" name="listado">
-                    <span class="text-secondary">Recuerda que 0 es falso y 1 es verdadero</span><br>
-                    <span class="mensaje-error" id="mensajeListado"></span>
-                </div>
-                <div class="col-md-12">
-                    <input type="reset" value="Limpiar campos"  class="btn btn-primary" id="reset">
-                    <button type="submit" class="btn btn-success">Agregar Producto</button>
-                    <p class="d-none mt-2" id="indicador">Modificando...</p>
-                </div>
-            </form>
+          <form id="agregarProductos" class="row g-4" novalidate>
+            <div class="col-md-6">
+                <input class="form-control d-none" type="text" name="id" id="id">
+                <label for="cliente" class="form-label">Cliente Producto</label>
+                <input type="text" id="cliente" class="form-control" name="cliente">
+                <span class="mensaje-error" id="mensajeCliente"></span>
+            </div>
+            <div class="col-md-6">
+                <label for="nombre" class="form-label">Nombre Producto</label>
+                <input type="text" id="nombre" class="form-control" name="nombre">
+                <span class="mensaje-error" id="mensajeNombre"></span>
+            </div>
+            <div class="col-md-4">
+                <label for="busto" class="form-label">Medida Busto</label>
+                <input type="text" id="busto" class="form-control" name="busto">
+                <span class="mensaje-error" id="mensajeBusto"></span>
+            </div>
+            <div class="col-md-4">
+                <label for="cintura" class="form-label">Medida Cintura</label>
+                <input type="text" id="cintura" class="form-control" name="cintura">
+                <span class="mensaje-error" id="mensajeCintura"></span>
+            </div>
+            <div class="col-md-4">
+                <label for="cadera" class="form-label">Medida Cadera</label>
+                <input type="text" id="cadera" class="form-control" name="cadera">
+                <span class="mensaje-error" id="mensajeCadera"></span>
+            </div>
+            <div class="col-md-4">
+                <label for="precioBase" class="form-label">Precio Molde Base</label>
+                <input type="text" id="precioBase" class="form-control" name="precioBase">
+                <span class="mensaje-error" id="mensajePrecioBase"></span>
+            </div>
+            <div class="col-md-4">
+                <label for="precioDigital" class="form-label">Precio Molde Digital</label>
+                <input type="text" id="precioDigital" class="form-control" name="precioDigital">
+                <span class="mensaje-error" id="mensajePrecioDigital"></span>
+            </div>
+            <div class="col-md-4">
+                <label for="precioCartulina" class="form-label">Precio Molde Cartulina</label>
+                <input type="text" id="precioCartulina" class="form-control" name="precioCartulina">
+                <span class="mensaje-error" id="mensajePrecioCartulina"></span>
+            </div>
+            <div class="col-md-3">
+                <label for="cantidadTalles" class="form-label">Cantidad de Talles</label>
+                <input type="text" id="cantidadTalles" class="form-control" name="cantidadTalles">
+                <span class="mensaje-error" id="mensajeCantidadTalles"></span>
+            </div>
+            <div class="col-md-3">
+                <label for="idCategoria" class="form-label">ID Categoria</label>
+                <input type="text" id="idCategoria" class="form-control" name="idCategoria">
+                <span class="mensaje-error" id="mensajeCategoria"></span>
+            </div>
+            <div class="col-md-3">
+                <label for="listado" class="form-label">Listado</label>
+                <input type="text" id="listado" class="form-control" name="listado">
+                <span class="text-secondary">Recordá que 0 es falso y 1 es verdadero</span><br>
+                <span class="mensaje-error" id="mensajeListado"></span>
+            </div>
+            <div class="col-md-12">
+                <input type="reset" value="Limpiar campos"  class="btn btn-primary" id="reset">
+                <button type="submit" class="btn btn-success">Agregar Producto</button>
+                <p class="d-none mt-2" id="indicador">Modificando...</p>
+            </div>
+        </form>
         </section>
         <section class="my-5">
             <table class="table table-hover">
                 <thead>
                     <tr class="text-center">
-                        <th class="p-2">ID</th>
-                        <th class="p-2">Nombre</th>
-                        <th class="p-2">Descripcion</th> 
-                        <th class="p-2">ID Categoria</th>
-                        <th class="p-2">Precio</th>
-                        <th class="p-2">Costo</th>
-                        <th class="p-2 d-none">Listado</th>
-                        <th class="p-2">Acciones</th>
+                      <th class="p-2">ID</th>
+                      <th class="p-2">Cliente</th>
+                      <th class="p-2">Nombre</th>
+                      <th class="p-2">ID Categoria</th>
+                      <th class="p-2">Medida Busto</th> 
+                      <th class="p-2">Medida Cintura</th> 
+                      <th class="p-2">Medida Cadera</th> 
+                      <th class="p-2">Precio Base</th>
+                      <th class="p-2">Precio Digital</th>
+                      <th class="p-2">Precio Cartulina</th>
+                      <th class="p-2">Cantidad Talles</th>
+                      <th class="p-2 d-none">Listado</th>
+                      <th class="p-2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="bodyTableProductos" class="text-center">

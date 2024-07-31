@@ -21,25 +21,43 @@ document.addEventListener('DOMContentLoaded',async()=>{
     tdId.classList.add("p-2");
     tdId.textContent = producto.id;
 
+    const tdCliente = document.createElement("td");
+    tdCliente.classList.add("p-2");
+    tdCliente.textContent = producto.cliente;
+
     const tdNombre = document.createElement("td");
     tdNombre.classList.add("p-2");
     tdNombre.textContent = producto.nombre;
-
-    const tdDescripcion = document.createElement("td"); //! Revisar overflow
-    tdDescripcion.classList.add("p-2");
-    tdDescripcion.textContent = producto.descripcion;
-
+    
     const tdIdCategoria = document.createElement("td");
     tdIdCategoria.classList.add("p-2");
     tdIdCategoria.textContent = producto.idCategoria;
 
-    const tdPrecio = document.createElement("td");
-    tdPrecio.classList.add("p-2");
-    tdPrecio.textContent = `$${producto.precio}`;
+    const tdMedidaBusto = document.createElement("td");
+    tdMedidaBusto.classList.add("p-2");
+    tdMedidaBusto.textContent = producto.medidaBusto;
 
-    const tdCosto = document.createElement("td");
-    tdCosto.classList.add("p-2");
-    tdCosto.textContent = `$${producto.costo}`;
+    const tdMedidaCintura = document.createElement("td");
+    tdMedidaCintura.classList.add("p-2");
+    tdMedidaCintura.textContent = producto.medidaCintura;
+
+    const tdMedidaCadera = document.createElement("td");
+    tdMedidaCadera.classList.add("p-2");
+    tdMedidaCadera.textContent = producto.medidaCadera;
+
+    const tdPrecioBase = document.createElement("td");
+    tdPrecioBase.classList.add("p-2");
+    tdPrecioBase.textContent = `$${producto.precioMoldeBase}`;
+    const tdPrecioDigital = document.createElement("td");
+    tdPrecioDigital.classList.add("p-2");
+    tdPrecioDigital.textContent = `$${producto.precioMoldeDigital}`;
+    const tdPrecioCartulina = document.createElement("td");
+    tdPrecioCartulina.classList.add("p-2");
+    tdPrecioCartulina.textContent = `$${producto.precioMoldeCartulina}`;
+
+    const tdTalles = document.createElement("td");
+    tdTalles.classList.add("p-2");
+    tdTalles.textContent = producto.cantidadTalles
 
     const tdListado = document.createElement("td");
     tdListado.classList.add("d-none");
@@ -64,11 +82,16 @@ document.addEventListener('DOMContentLoaded',async()=>{
 
     //Añadimos los td al tr
     tr.appendChild(tdId);
+    tr.appendChild(tdCliente);
     tr.appendChild(tdNombre);
-    tr.appendChild(tdDescripcion);
     tr.appendChild(tdIdCategoria);
-    tr.appendChild(tdPrecio);
-    tr.appendChild(tdCosto);
+    tr.appendChild(tdMedidaBusto);
+    tr.appendChild(tdMedidaCintura);
+    tr.appendChild(tdMedidaCadera);
+    tr.appendChild(tdPrecioBase);
+    tr.appendChild(tdPrecioDigital);
+    tr.appendChild(tdPrecioCartulina);
+    tr.appendChild(tdTalles);
     tr.appendChild(tdListado);
     tr.appendChild(tdAccion);
     //Añadimos el tr al tbody
@@ -178,14 +201,20 @@ document.addEventListener('DOMContentLoaded',async()=>{
               }
               const data = await response.json();
               const productoUnico = data[0];
-              console.log(data);
+              // console.log(data);
+
               // son los id del formulario, como son unicos e irrepetibles dentro del html, sabe a quien insertarles los valores
               document.getElementById('id').value = productoUnico.id;
+              document.getElementById('cliente').value = productoUnico.cliente;
               document.getElementById('nombre').value = productoUnico.nombre;
-              document.getElementById('descripcion').value = productoUnico.descripcion;
+              document.getElementById('busto').value = productoUnico.medidaBusto;
+              document.getElementById('cintura').value = productoUnico.medidaCintura;
+              document.getElementById('cadera').value = productoUnico.medidaCadera;
+              document.getElementById('precioBase').value = productoUnico.precioMoldeBase;
+              document.getElementById('precioDigital').value = productoUnico.precioMoldeDigital;
+              document.getElementById('precioCartulina').value = productoUnico.precioMoldeCartulina;
               document.getElementById('idCategoria').value = productoUnico.idCategoria;
-              document.getElementById('precio').value = productoUnico.precio;
-              document.getElementById('costo').value = productoUnico.costo
+              document.getElementById('cantidadTalles').value = productoUnico.cantidadTalles;
               document.getElementById('listado').value = productoUnico.listado;
             
               // manejo de excepciones, levanto la excepcion si hay error y la muestro en consola

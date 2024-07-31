@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded',async()=>{
       const tdIdProducto = document.createElement("td");
       tdIdProducto.classList.add("p-2");
       tdIdProducto.textContent = producto.idProducto;
+
+      const tdCliente = document.createElement("td");
+      tdCliente.classList.add("p-2");
+      tdCliente.textContent = producto.nombreCliente;
   
       const tdNombre = document.createElement("td");
       tdNombre.classList.add("p-2");
@@ -54,6 +58,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
       
       tr.appendChild(tdId);
       tr.appendChild(tdIdProducto);
+      tr.appendChild(tdCliente);
       tr.appendChild(tdNombre);
       tr.appendChild(tdCantidad );
       tr.appendChild(tdAccion);
