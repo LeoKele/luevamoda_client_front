@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
       // Confirmación de eliminación
       swal({
         title: "¿Estás seguro?",
-        text: "Una vez eliminado, no podrás recuperar esta categoria",
+        text: "Una vez eliminado, no podrás recuperar esta categoría",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -72,21 +72,31 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 'Content-Type': 'application/json'
               }
             });
-  
+
+            const responseData = await response.json();
+
             if (!response.ok) {
+              let errorMessage = "Por favor, intente de nuevo más tarde";
+              if (response.status === 409) { // Conflict
+                errorMessage = responseData.message || "Error: No se puede eliminar la categoría porque está relacionada con otros registros.";
+              } else if (response.status === 404) { // Not Found
+                errorMessage = responseData.message || "Categoría no encontrada.";
+              } else if (response.status === 400) { // Bad Request
+                errorMessage = responseData.message || "ID de la categoría es requerido.";
+              } else if (response.status === 500) { // Internal Server Error
+                errorMessage = responseData.message || "Error en el servidor. Intente nuevamente más tarde.";
+              }
               swal({
-                title: "Error al eliminar la categoria.",
-                text: "Por favor, intente de nuevo más tarde",
+                title: "Error al eliminar la categoría.",
+                text: errorMessage,
                 icon: "error",
               });
-              throw new Error('Error al la categoria');
+              throw new Error(errorMessage);
             }
-  
-            const data = await response.json();
-  
+
             // Si la eliminación fue exitosa, mostrar alerta de éxito
             swal({
-              title: "Categoria Eliminada Correctamente",
+              title: "Categoría Eliminada Correctamente",
               icon: "success",
             }).then((value) => {
               if (value) {
@@ -94,12 +104,18 @@ document.addEventListener('DOMContentLoaded',async()=>{
                 location.reload();
               }
             });
-  
+
           } catch (error) {
             console.error('Error:', error);
+            swal({
+              title: "Error al eliminar la categoría.",
+              text: error.message || "Por favor, intente de nuevo más tarde",
+              icon: "error",
+            });
           }
         }
       });
+
     });
   });
 

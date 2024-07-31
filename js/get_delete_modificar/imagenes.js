@@ -62,49 +62,64 @@ document.addEventListener('DOMContentLoaded',async()=>{
         const imagenId = row.querySelector('td:first-child').innerText.trim();
     
         // Confirmación de eliminación
+swal({
+  title: "¿Estás seguro?",
+  text: "Una vez eliminado, no podrás recuperar esta imagen",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+}).then(async (willDelete) => {
+  if (willDelete) {
+    try {
+      const response = await fetch(`http://localhost:8080/api_lueva/imagenes?id=${imagenId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text(); // Obtener el texto del error
+        let errorMessage = 'Error al eliminar la imagen';
+
+        if (response.status === 409) {
+          errorMessage = 'La ruta de la imagen está en uso y no puede ser eliminada.';
+        } else if (response.status === 400) {
+          errorMessage = 'El ID de producto asociado no existe.';
+        }
+
         swal({
-          title: "¿Estás seguro?",
-          text: "Una vez eliminado, no podrás recuperar esta imagen",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        }).then(async (willDelete) => {
-          if (willDelete) {
-            try {
-              const response = await fetch(`http://localhost:8080/api_lueva/imagenes?id=${imagenId}`, {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json'
-                }
-              });
-    
-              if (!response.ok) {
-                swal({
-                  title: "Error al eliminar la imagen.",
-                  text: "Por favor, intente de nuevo más tarde",
-                  icon: "error",
-                });
-                throw new Error('Error al eliminar la imagen');
-              }
-    
-              const data = await response.json();
-    
-              // Si la eliminación fue exitosa, mostrar alerta de éxito
-              swal({
-                title: "Imagen Eliminada Correctamente",
-                icon: "success",
-              }).then((value) => {
-                if (value) {
-                  // Recargar la página
-                  location.reload();
-                }
-              });
-    
-            } catch (error) {
-              console.error('Error:', error);
-            }
-          }
+          title: "Error al eliminar la imagen.",
+          text: errorText || errorMessage,
+          icon: "error",
         });
+        throw new Error(errorText || errorMessage);
+      }
+
+      const data = await response.json();
+
+      // Si la eliminación fue exitosa, mostrar alerta de éxito
+      swal({
+        title: "Imagen Eliminada Correctamente",
+        icon: "success",
+      }).then((value) => {
+        if (value) {
+          // Recargar la página
+          location.reload();
+        }
+      });
+
+    } catch (error) {
+      console.error('Error:', error);
+      swal({
+        title: "Error al eliminar la imagen.",
+        text: error.message || "Por favor, intente de nuevo más tarde",
+        icon: "error",
+      });
+    }
+  }
+});
+
       });
     });
     //evento para modificar

@@ -1,5 +1,4 @@
-
-const formNuevoProducto = document.getElementById('agregarProductos');
+const formNuevoProducto = document.getElementById("agregarProductos");
 
 formNuevoProducto.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -13,7 +12,7 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   var errorPrecioBase = document.getElementById("mensajePrecioBase");
   var errorPrecioDigital = document.getElementById("mensajePrecioDigital");
   var errorPrecioCartulina = document.getElementById("mensajePrecioCartulina");
-  var errorTalles = document.getElementById("mensajeCantidadTalles")
+  var errorTalles = document.getElementById("mensajeCantidadTalles");
   var errorCategoria = document.getElementById("mensajeCategoria");
   var errorListado = document.getElementById("mensajeListado");
 
@@ -23,10 +22,10 @@ formNuevoProducto.addEventListener("submit", async (event) => {
     errorBusto.textContent = "";
     errorCintura.textContent = "";
     errorCadera.textContent = "";
-    errorPrecioBase.textContent = ""; 
+    errorPrecioBase.textContent = "";
     errorPrecioDigital.textContent = "";
     errorPrecioCartulina.textContent = "";
-    errorTalles.textContent = ""; 
+    errorTalles.textContent = "";
     errorCategoria.textContent = "";
     errorListado.textContent = "";
   }
@@ -37,7 +36,7 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   const formData = new FormData(formNuevoProducto);
   //Obtengo los valores de los inputs del form
   const id = formData.get("id");
-  const cliente = formData.get('cliente');
+  const cliente = formData.get("cliente");
   const nombre = formData.get("nombre");
   const busto = formData.get("busto");
   const cintura = formData.get("cintura");
@@ -63,48 +62,57 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   const listadoValido = esTiny(listado);
 
   //validamos que todos los valores sean validos antes de hacer la peticion a la API
-  if (clienteValido || nombreValido || !bustoValido || !cinturaValido || !caderaValido || !precioBaseValido || !precioDigitalValido || !precioCartulinaValido || !categoriaValido || !tallesValido || !listadoValido) {
-
-    clienteValido.textContent = !clienteValido
+  if (
+    clienteValido ||
+    nombreValido ||
+    !bustoValido ||
+    !cinturaValido ||
+    !caderaValido ||
+    !precioBaseValido ||
+    !precioDigitalValido ||
+    !precioCartulinaValido ||
+    !categoriaValido ||
+    !tallesValido ||
+    !listadoValido
+  ) {
+    errorCliente.textContent = !clienteValido
       ? ""
       : "Por favor, completa este campo";
     errorNombre.textContent = !nombreValido
       ? ""
       : "Por favor, completa este campo.";
     errorBusto.textContent = bustoValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para el busto.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para el busto.";
     errorCintura.textContent = cinturaValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para la cintura.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para la cintura.";
     errorCadera.textContent = caderaValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para la cadera.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para la cadera.";
     errorPrecioBase.textContent = precioBaseValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para el precio base.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para el precio base.";
     errorPrecioDigital.textContent = precioDigitalValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para el precio digital.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para el precio digital.";
     errorPrecioCartulina.textContent = precioCartulinaValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para el precio cartulina.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para el precio cartulina.";
     errorCategoria.textContent = categoriaValido
       ? ""
       : "Por favor, ingrese un número entero.";
     errorTalles.textContent = tallesValido
-    ? ""
-    : "Por favor, ingresa un valor numerico para la cantidad de talles.";
+      ? ""
+      : "Por favor, ingresa un valor numerico para la cantidad de talles.";
     errorListado.textContent = listadoValido
       ? ""
-      : "Por favor, ingrese un número válido"
+      : "Por favor, ingrese un número válido";
     return;
   }
 
-
-
   let url = "http://localhost:8080/api_lueva/productos/admin";
-  let method = 'POST';
+  let method = "POST";
 
   const productoData = {
     cliente: cliente,
@@ -117,112 +125,114 @@ formNuevoProducto.addEventListener("submit", async (event) => {
     precioMoldeDigital: precioDigital,
     precioMoldeCartulina: precioCartulina,
     cantidadTalles: talles,
-    listado: listado
+    listado: listado,
   };
 
-  if (id){
-    
+  if (id) {
     productoData.id = id;
-    method = 'PUT';
-
+    method = "PUT";
   }
-  //Configuramos para la peticion 
+  //Configuramos para la peticion
   const options = {
     method: method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(productoData)
+    body: JSON.stringify(productoData),
   };
 
-
   try {
-    const response = await fetch(url,options);
-    if (!response.ok){
+    const response = await fetch(url, options);
+    if (!response.ok) {
       const errorText = await response.text(); // Obtener el texto del error
-      throw new Error(errorText ||'Error al guardar producto');
+      throw new Error(errorText || "Error al guardar producto");
     }
+
     const responseData = await response.json();
-    if (method === 'POST'){
-      if (response.status !==201){//201 indica que se creo correctamente
+    if (method === "POST") {
+      if (response.status !== 201) {
+        // 201 indica que se creó correctamente
         swal({
-          title: "Error al guardar el producto.",
-          text: responseData.message || "Por Favor, intente de nuevo más tarde",
+          title: "Error al agregar el producto.",
+          text: responseData.message || "Por favor, intente de nuevo más tarde",
           icon: "error",
         });
-        throw new Error(responseData.message || 'Error al guardar el producto');
+        throw new Error(responseData.message || "Error al agregar el producto");
       }
       swal({
         title: "Producto agregado correctamente",
         icon: "success",
       }).then((value) => {
         if (value) {
-          // que se recargue la pagina para ver la categoria agregada
+          // Recargar la página para ver el producto agregado
           location.reload();
         }
       });
     } else {
-      // console.log("put");
-      //si es 200, el producto se modifico correctamente
-      if (response.status !== 200){
+      // Si es 200, el producto se modificó correctamente
+      if (response.status !== 200) {
         swal({
           title: "Error al modificar el producto.",
-          text: responseData.message || "Por Favor, intente de nuevo más tarde",
+          text: responseData.message || "Por favor, intente de nuevo más tarde",
           icon: "error",
         });
-        throw new Error(responseData.message || 'Error al modificar el producto');
+        throw new Error(
+          responseData.message || "Error al modificar el producto"
+        );
       }
       swal({
         title: "Producto modificado correctamente",
         icon: "success",
       }).then((value) => {
         if (value) {
-          // que se recargue la pagina para ver la categoria agregada
+          // Recargar la página para ver el producto modificado
           location.reload();
         }
       });
     }
-  }catch (error){
-    console.log('Error: ', error);
+  } catch (error) {
+    console.log("Error: ", error);
     swal({
-      title: "Error al agregar el producto.",
-      text: error.message || "Por Favor, intente de nuevo más tarde",
+      title: "Error al procesar la solicitud.",
+      text: error.message || "Por favor, intente de nuevo más tarde",
       icon: "error",
     });
   }
 });
 
-
-
-function esFloat(valor){
-    const numero = parseFloat(valor);
-    return !isNaN(numero);
+function esFloat(valor) {
+  const numero = parseFloat(valor);
+  return !isNaN(numero);
 }
 
-function esInt(valor){
-    const numero = parseInt(valor);
-    return !isNaN(numero);
+function esInt(valor) {
+  const numero = parseInt(valor);
+  return !isNaN(numero);
 }
 
 function esTiny(numero) {
   const valorNumerico = parseFloat(numero); // Convierte el valor a número
-  if (!isNaN(valorNumerico) && Number.isInteger(valorNumerico) && (valorNumerico === 0 || valorNumerico === 1)) {
-      return true;
+  if (
+    !isNaN(valorNumerico) &&
+    Number.isInteger(valorNumerico) &&
+    (valorNumerico === 0 || valorNumerico === 1)
+  ) {
+    return true;
   } else {
-      return false;
+    return false;
   }
 }
 
-function stringVacio(string){
-    if (string === '') return true;
+function stringVacio(string) {
+  if (string === "") return true;
 }
 
-  //limpio campos
-  document.getElementById("reset").addEventListener("click", function () {
-    const indicador = document.getElementById('indicador');
-    indicador.classList.add("d-none");
-    var mensajesError = document.querySelectorAll(".mensaje-error");
-    mensajesError.forEach(function (mensaje) {
-      mensaje.textContent = "";
-    });
+//limpio campos
+document.getElementById("reset").addEventListener("click", function () {
+  const indicador = document.getElementById("indicador");
+  indicador.classList.add("d-none");
+  var mensajesError = document.querySelectorAll(".mensaje-error");
+  mensajesError.forEach(function (mensaje) {
+    mensaje.textContent = "";
   });
+});

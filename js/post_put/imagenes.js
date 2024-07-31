@@ -53,7 +53,23 @@ formNuevaImagen.addEventListener("submit", async (event) => {
     
       if (!response.ok) {
         const errorText = await response.text(); // Obtener el texto del error
-        throw new Error(errorText || 'Error al guardar imagen');
+        let errorTitle = 'Error al guardar la imagen';
+        let errorMessage = 'Error desconocido';
+    
+        if (response.status === 409) {
+          errorTitle = 'Error de conflicto';
+          errorMessage = 'La ruta de la imagen ya está en uso.';
+        } else if (response.status === 400) {
+          errorTitle = 'Error de solicitud incorrecta';
+          errorMessage = 'El ID de producto no existe.';
+        }
+    
+        swal({
+          title: errorTitle,
+          text: errorText || errorMessage, // Mostrar el mensaje de error recibido
+          icon: "error",
+        });
+        throw new Error(errorText || errorMessage);
       }
     
       const responseData = await response.json();
@@ -77,7 +93,7 @@ formNuevaImagen.addEventListener("submit", async (event) => {
           }
         });
       } else {
-        // Si es 200, el producto se modificó correctamente
+        // Si es 200, la imagen se modificó correctamente
         if (response.status !== 200) {
           swal({
             title: "Error al modificar la imagen.",
@@ -100,11 +116,12 @@ formNuevaImagen.addEventListener("submit", async (event) => {
     } catch (error) {
       console.log('Error: ', error);
       swal({
-        title: "Error al agregar la imagen.",
+        title: "Error al agregar o modificar la imagen.",
         text: error.message || "Por favor, inténtelo de nuevo más tarde",
         icon: "error",
       });
     }
+    
     
     
   

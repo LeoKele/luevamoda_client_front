@@ -1,5 +1,4 @@
-
-const formNuevaVenta = document.getElementById('agregarVentas');
+const formNuevaVenta = document.getElementById("agregarVentas");
 
 formNuevaVenta.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -34,10 +33,15 @@ formNuevaVenta.addEventListener("submit", async (event) => {
   const idProductoValido = esInt(idProducto);
   const idClienteValido = esInt(idCliente);
   const cantidadValido = esInt(cantidad);
-  const precioValido = esFloat(precio)
+  const precioValido = esFloat(precio);
 
-
-  if (fechaValido || !idProductoValido || !idClienteValido || !cantidadValido || !precioValido) {
+  if (
+    fechaValido ||
+    !idProductoValido ||
+    !idClienteValido ||
+    !cantidadValido ||
+    !precioValido
+  ) {
     errorFecha.textContent = !fechaValido
       ? ""
       : "Por favor, completa este campo.";
@@ -56,112 +60,106 @@ formNuevaVenta.addEventListener("submit", async (event) => {
     return;
   }
 
-
-
   let url = "http://localhost:8080/api_lueva/ventas";
-  let method = 'POST';
+  let method = "POST";
 
   const ventaData = {
     fechaVenta: fecha,
     idProducto: idProducto,
     idCliente: idCliente,
     cantidad: cantidad,
-    precioUnitario: precio
+    precioUnitario: precio,
   };
 
-  if (id){
-    
+  if (id) {
     ventaData.id = id;
-    method = 'PUT';
-
+    method = "PUT";
   }
-  //Configuramos para la peticion 
+  //Configuramos para la peticion
   const options = {
     method: method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(ventaData)
+    body: JSON.stringify(ventaData),
   };
 
-
   try {
-    const response = await fetch(url,options);
-    if (!response.ok){
-      throw new Error('Error al guardar la venta');
-    }
+    const response = await fetch(url, options);
     const responseData = await response.json();
-    if (method === 'POST'){
-      if (response.status !==201){//201 indica que se creo correctamente
-        swal({
-          title: "Error al guardar la venta.",
-          text: "Por Favor, intente de nuevo más tarde",
-          icon: "error",
-        });
-        throw new Error('Error al guardar la venta');
+
+    if (!response.ok) {
+      // Manejar errores específicos de la respuesta
+      let errorMessage = "Error al guardar la venta";
+      if (response.status === 400) {
+        errorMessage =
+          responseData.message || "El ID de cliente o producto no existe.";
+      } else if (response.status === 409) {
+        errorMessage =
+          responseData.message ||
+          "Conflicto de datos. Verifique los valores enviados.";
       }
-      swal({
-        title: "Venta agregada correctamente",
-        icon: "success",
-      }).then((value) => {
-        if (value) {
-          // que se recargue la pagina para ver la categoria agregada
-          location.reload();
-        }
-      });
-    } else {
-      // console.log("put");
-      //si es 200, el producto se modifico correctamente
-      if (response.status !== 200){
-        swal({
-          title: "Error al modificar la venta.",
-          text: "Por Favor, intente de nuevo más tarde",
-          icon: "error",
-        });
-        throw new Error('Error al modificar la venta');
-      }
-      swal({
-        title: "Venta modificada correctamente",
-        icon: "success",
-      }).then((value) => {
-        if (value) {
-          // que se recargue la pagina para ver la categoria agregada
-          location.reload();
-        }
-      });
+
+      throw new Error(errorMessage);
     }
-  }catch (error){
-    console.log('Error: ', error);
+
+    if (method === "POST") {
+      if (response.status === 201) {
+        swal({
+          title: "Venta agregada correctamente",
+          icon: "success",
+        }).then((value) => {
+          if (value) {
+            location.reload();
+          }
+        });
+      } else {
+        throw new Error("Error al guardar la venta");
+      }
+    } else {
+      if (response.status === 200) {
+        swal({
+          title: "Venta modificada correctamente",
+          icon: "success",
+        }).then((value) => {
+          if (value) {
+            location.reload();
+          }
+        });
+      } else {
+        throw new Error("Error al modificar la venta");
+      }
+    }
+  } catch (error) {
+    console.log("Error: ", error);
     swal({
-      title: "Error al agregar la venta.",
-      text: "Por Favor, intente de nuevo más tarde",
+      title: "Error al agregar/modificar la venta.",
+      text: error.message || "Por favor, intente de nuevo más tarde",
       icon: "error",
     });
   }
 });
 
-
-
-function esFloat(valor){
-    const numero = parseFloat(valor);
-    return !isNaN(numero);
+function esFloat(valor) {
+  const numero = parseFloat(valor);
+  return !isNaN(numero);
 }
 
-function esInt(valor){
-    const numero = parseInt(valor);
-    return !isNaN(numero);
+function esInt(valor) {
+  const numero = parseInt(valor);
+  return !isNaN(numero);
 }
 
-function stringVacio(string){
-    if (string === '') return true;
+function stringVacio(string) {
+  if (string === "") return true;
 }
 
-  //limpio campos
-  document.getElementById("reset").addEventListener("click", function () {
-    const indicador = document.getElementById('indicador');
-    indicador.classList.add("d-none");
-    var mensajesError = document.querySelectorAll(".mensaje-error");
-    mensajesError.forEach(function (mensaje) {
-      mensaje.textContent = "";
-    });
+//limpio campos
+document.getElementById("reset").addEventListener("click", function () {
+  const indicador = document.getElementById("indicador");
+  indicador.classList.add("d-none");
+  var mensajesError = document.querySelectorAll(".mensaje-error");
+  mensajesError.forEach(function (mensaje) {
+    mensaje.textContent = "";
   });
+});
