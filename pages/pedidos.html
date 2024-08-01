@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/7a7df7520d.js" crossorigin="anonymous"></script>
+    <title>Lueva Client | Administrador de Pedidos</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="../index.html">Productos</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link" href="imagenes.html">Imagenes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="categorias.html">Categorias</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="otrosProductos.html">Otros Productos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="stock.html">Stock</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="ventas.html">Ventas</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="gastos.html">Gastos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="clientes.html">Clientes</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="#">Pedidos</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </header>
+    <main class="mt-5 container">
+        <div class="text-center">
+            <h1>Administrador de Pedidos</h1>
+            <h5>A través de este portal podés gestionar tus pedidos</h5>
+        </div>
+
+        <section class="mt-5">
+            <form id="agregarPedidos" class="row g-3" novalidate>
+                <div class="col-md-4">
+                    <input class="form-control d-none" type="text" name="id" id="id">
+                    <label for="fechaRecibido" class="form-label">Fecha Recibido</label>
+                    <input type="date" id="fechaRecibido" class="form-control" name="fechaRecibido">
+                    <span class="mensaje-error" id="mensajeFechaRecibido"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="idCliente" class="form-label">ID Cliente</label>
+                    <input type="text" id="idCliente" class="form-control" name="idCliente">
+                    <span class="text-secondary">Recordá que el id debe ser de un cliente existente.</span><br>
+                    <span class="mensaje-error" id="mensajeIdCliente"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="fechaFinalizado" class="form-label">Fecha Finalizado</label>
+                    <input type="date" id="fechaFinalizado" class="form-control" name="fechaFinalizado">
+                    <span class="mensaje-error" id="mensajeFechaFinalizado"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="descripcion" class="form-label">Descripcion</label>
+                    <input type="text" id="descripcion" class="form-control" name="descripcion">
+                    <span class="mensaje-error" id="mensajeDescripcion"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="estado" class="form-label">Estado</label>
+                    <select id="estado" name="estado" class="form-select" aria-label="Default select example">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Procesando">Procesando</option>
+                        <option value="Completado">Completado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <input type="reset" value="Limpiar campos"  class="btn btn-primary" id="reset">
+                    <button type="submit" class="btn btn-success">Agregar Pedido</button>
+                    <p class="d-none mt-2" id="indicador">Modificando...</p>
+                </div>
+            </form>
+        </section>
+        <section class="my-5">
+            <h5>Ir a:</h5>
+            <div class="btn-group mb-3" role="group" aria-label="Basic outlined example">
+                <a class="btn btn-outline-primary" href="#pendiente">Pedidos Pendientes</a>
+                <a class="btn btn-outline-primary" href="#procesando">Pedidos en Proceso</a>
+                <a class="btn btn-outline-primary" href="#completado">Pedidos Completados</a>
+                <a class="btn btn-outline-primary" href="#cancelado">Pedidos Cancelados</a>
+            </div>
+            <h3 class="mt-5 text-info-emphasis">Pedidos Pendientes:</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center" id="pendiente">
+                        <th class="d-none">ID Pedido</th>
+                        <th class="p-2">Fecha Recibido</th>
+                        <th class="p-2">ID Cliente</th>
+                        <th class="p-2">Nombre Cliente</th>
+                        <th class="p-2">Fecha Finalizado</th>
+                        <th class="p-2">Descripcion</th>
+                        <th class="p-2">Estado</th>
+                        <th class="p-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTablePedidosPendiente" class="text-center">
+
+                </tbody>
+            </table>
+            <h3 class="mt-5 text-warning-emphasis">Pedidos en Proceso:</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center" id="procesando">
+                        <th class="d-none">ID Pedido</th>
+                        <th class="p-2">Fecha Recibido</th>
+                        <th class="p-2">ID Cliente</th>
+                        <th class="p-2">Nombre Cliente</th>
+                        <th class="p-2">Fecha Finalizado</th>
+                        <th class="p-2">Descripcion</th>
+                        <th class="p-2">Estado</th>
+                        <th class="p-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTablePedidosProcesando" class="text-center">
+
+                </tbody>
+            </table>
+            <h3 class="mt-5 text-success-emphasis">Pedidos Completados:</h3>
+            <table class="table table-hover" id="completado">
+                <thead>
+                    <tr class="text-center">
+                        <th class="d-none">ID Pedido</th>
+                        <th class="p-2">Fecha Recibido</th>
+                        <th class="p-2">ID Cliente</th>
+                        <th class="p-2">Nombre Cliente</th>
+                        <th class="p-2">Fecha Finalizado</th>
+                        <th class="p-2">Descripcion</th>
+                        <th class="p-2">Estado</th>
+                        <th class="p-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTablePedidosCompletado" class="text-center">
+
+                </tbody>
+            </table>
+            <h3 class="mt-5 text-danger-emphasis">Pedidos Cancelados:</h3>
+            <table class="table table-hover" id="cancelado">
+                <thead>
+                    <tr class="text-center">
+                        <th class="d-none">ID Pedido</th>
+                        <th class="p-2">Fecha Recibido</th>
+                        <th class="p-2">ID Cliente</th>
+                        <th class="p-2">Nombre Cliente</th>
+                        <th class="p-2">Fecha Finalizado</th>
+                        <th class="p-2">Descripcion</th>
+                        <th class="p-2">Estado</th>
+                        <th class="p-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyTablePedidosCancelado" class="text-center">
+
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <button class="scroll-top-button btn-submit" onclick="scrollToTop()"><i class="fa-solid fa-arrow-up"></i></button>
+    <script>
+        // Función para hacer scroll al principio
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    
+        // Mostrar u ocultar el botón según el scroll
+        window.addEventListener('scroll', function() {
+            const button = document.querySelector('.scroll-top-button');
+            if (window.scrollY > 200) {
+                button.classList.add('show-scroll-button');
+            } else {
+                button.classList.remove('show-scroll-button');
+            }
+        });
+      </script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/get_delete_modificar/pedidos.js"></script>
+    <script src="../js/post_put/pedidos.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>

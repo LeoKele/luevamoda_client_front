@@ -1,6 +1,6 @@
-const formNuevoGasto = document.getElementById("agregarClientes");
+const formNuevoCliente = document.getElementById("agregarClientes");
 
-formNuevoGasto.addEventListener("submit", async (event) => {
+formNuevoCliente.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   // guardamos los labels de mensajes de error
@@ -17,7 +17,7 @@ formNuevoGasto.addEventListener("submit", async (event) => {
 
   //* Validacion simple del form
   //Obtengo los valores de los campos
-  const formData = new FormData(formNuevoGasto);
+  const formData = new FormData(formNuevoCliente);
   //Obtengo los valores de los inputs
   const id = formData.get("id");
   const nombre = formData.get("nombre");
