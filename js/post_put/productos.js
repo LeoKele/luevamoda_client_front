@@ -5,27 +5,19 @@ formNuevoProducto.addEventListener("submit", async (event) => {
 
   //recolectando los mensajes de error de index.html
   var errorCliente = document.getElementById("mensajeCliente");
-  var errorNombre = document.getElementById("mensajeNombre");
-  var errorBusto = document.getElementById("mensajeBusto");
-  var errorCintura = document.getElementById("mensajeCintura");
-  var errorCadera = document.getElementById("mensajeCadera");
+  var errorNombre = document.getElementById("mensajeNombre");;
   var errorPrecioBase = document.getElementById("mensajePrecioBase");
   var errorPrecioDigital = document.getElementById("mensajePrecioDigital");
   var errorPrecioCartulina = document.getElementById("mensajePrecioCartulina");
-  var errorTalles = document.getElementById("mensajeCantidadTalles");
   var errorCategoria = document.getElementById("mensajeCategoria");
   var errorListado = document.getElementById("mensajeListado");
 
   function limpiarMensajes() {
     errorCliente.textContent = "";
     errorNombre.textContent = "";
-    errorBusto.textContent = "";
-    errorCintura.textContent = "";
-    errorCadera.textContent = "";
     errorPrecioBase.textContent = "";
     errorPrecioDigital.textContent = "";
     errorPrecioCartulina.textContent = "";
-    errorTalles.textContent = "";
     errorCategoria.textContent = "";
     errorListado.textContent = "";
   }
@@ -38,26 +30,18 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   const id = formData.get("id");
   const cliente = formData.get("cliente");
   const nombre = formData.get("nombre");
-  const busto = formData.get("busto");
-  const cintura = formData.get("cintura");
-  const cadera = formData.get("cadera");
   const precioBase = formData.get("precioBase");
   const precioDigital = formData.get("precioDigital");
   const precioCartulina = formData.get("precioCartulina");
-  const talles = formData.get("cantidadTalles");
   const idCategoria = formData.get("idCategoria");
   const listado = formData.get("listado");
 
   //validamos los valores de los inputs
   const clienteValido = stringVacio(cliente);
   const nombreValido = stringVacio(nombre);
-  const bustoValido = esInt(busto);
-  const cinturaValido = esInt(cintura);
-  const caderaValido = esInt(cadera);
   const precioBaseValido = esFloat(precioBase);
   const precioDigitalValido = esFloat(precioDigital);
   const precioCartulinaValido = esFloat(precioCartulina);
-  const tallesValido = esInt(talles);
   const categoriaValido = esInt(idCategoria);
   const listadoValido = esTiny(listado);
 
@@ -65,14 +49,10 @@ formNuevoProducto.addEventListener("submit", async (event) => {
   if (
     clienteValido ||
     nombreValido ||
-    !bustoValido ||
-    !cinturaValido ||
-    !caderaValido ||
     !precioBaseValido ||
     !precioDigitalValido ||
     !precioCartulinaValido ||
     !categoriaValido ||
-    !tallesValido ||
     !listadoValido
   ) {
     errorCliente.textContent = !clienteValido
@@ -81,15 +61,6 @@ formNuevoProducto.addEventListener("submit", async (event) => {
     errorNombre.textContent = !nombreValido
       ? ""
       : "Por favor, completa este campo.";
-    errorBusto.textContent = bustoValido
-      ? ""
-      : "Por favor, ingresa un valor numerico para el busto.";
-    errorCintura.textContent = cinturaValido
-      ? ""
-      : "Por favor, ingresa un valor numerico para la cintura.";
-    errorCadera.textContent = caderaValido
-      ? ""
-      : "Por favor, ingresa un valor numerico para la cadera.";
     errorPrecioBase.textContent = precioBaseValido
       ? ""
       : "Por favor, ingresa un valor numerico para el precio base.";
@@ -102,9 +73,6 @@ formNuevoProducto.addEventListener("submit", async (event) => {
     errorCategoria.textContent = categoriaValido
       ? ""
       : "Por favor, ingrese un número entero.";
-    errorTalles.textContent = tallesValido
-      ? ""
-      : "Por favor, ingresa un valor numerico para la cantidad de talles.";
     errorListado.textContent = listadoValido
       ? ""
       : "Por favor, ingrese un número válido";
@@ -118,13 +86,9 @@ formNuevoProducto.addEventListener("submit", async (event) => {
     cliente: cliente,
     nombre: nombre,
     idCategoria: idCategoria,
-    medidaBusto: busto,
-    medidaCintura: cintura,
-    medidaCadera: cadera,
     precioMoldeBase: precioBase,
     precioMoldeDigital: precioDigital,
     precioMoldeCartulina: precioCartulina,
-    cantidadTalles: talles,
     listado: listado,
   };
 

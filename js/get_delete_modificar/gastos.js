@@ -158,16 +158,16 @@ document.addEventListener('DOMContentLoaded',async()=>{
   
   });
   
-
-//Funcion para convertir la fecha a formato "DD-MM-YYYY"
+// Función para convertir la fecha a formato "DD-MM-YYYY"
 function convertirFecha(fechaYyyymmdd) {
   try {
-      const fechaObj = new Date(fechaYyyymmdd);
-      const dia = fechaObj.getDate() + 1;
-      const mes = fechaObj.getMonth() + 1; // Los meses en JavaScript son base 0 (enero = 0)
-      const anio = fechaObj.getFullYear();
+      // Crear un objeto de fecha en UTC
+      const fechaObj = new Date(fechaYyyymmdd + 'T00:00:00Z');
+      const dia = String(fechaObj.getUTCDate()).padStart(2, '0'); // Obtener el día en UTC
+      const mes = String(fechaObj.getUTCMonth() + 1).padStart(2, '0'); // Obtener el mes en UTC
+      const anio = fechaObj.getUTCFullYear(); // Obtener el año en UTC
 
-      // Formatea la fecha como "DD-MM-YYYY"
+      // Formatear la fecha como "DD-MM-YYYY"
       const fechaDdmmyyyy = `${dia}-${mes}-${anio}`;
       return fechaDdmmyyyy;
   } catch (error) {

@@ -33,18 +33,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     tdIdCategoria.classList.add("p-2");
     tdIdCategoria.textContent = producto.idCategoria;
 
-    const tdMedidaBusto = document.createElement("td");
-    tdMedidaBusto.classList.add("p-2");
-    tdMedidaBusto.textContent = producto.medidaBusto;
-
-    const tdMedidaCintura = document.createElement("td");
-    tdMedidaCintura.classList.add("p-2");
-    tdMedidaCintura.textContent = producto.medidaCintura;
-
-    const tdMedidaCadera = document.createElement("td");
-    tdMedidaCadera.classList.add("p-2");
-    tdMedidaCadera.textContent = producto.medidaCadera;
-
     const tdPrecioBase = document.createElement("td");
     tdPrecioBase.classList.add("p-2");
     tdPrecioBase.textContent = `$${producto.precioMoldeBase}`;
@@ -97,9 +85,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     tr.appendChild(tdCliente);
     tr.appendChild(tdNombre);
     tr.appendChild(tdIdCategoria);
-    tr.appendChild(tdMedidaBusto);
-    tr.appendChild(tdMedidaCintura);
-    tr.appendChild(tdMedidaCadera);
     tr.appendChild(tdPrecioBase);
     tr.appendChild(tdPrecioDigital);
     tr.appendChild(tdPrecioCartulina);
@@ -109,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     //Añadimos el tr al tbody
     tbody.appendChild(tr);
   });
+
 
   document.querySelectorAll(".btnEliminar").forEach((button) => {
     button.addEventListener("click", async (event) => {
@@ -197,19 +183,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("id").value = productoUnico.id;
         document.getElementById("cliente").value = productoUnico.cliente;
         document.getElementById("nombre").value = productoUnico.nombre;
-        document.getElementById("busto").value = productoUnico.medidaBusto;
-        document.getElementById("cintura").value = productoUnico.medidaCintura;
-        document.getElementById("cadera").value = productoUnico.medidaCadera;
-        document.getElementById("precioBase").value =
-          productoUnico.precioMoldeBase;
-        document.getElementById("precioDigital").value =
-          productoUnico.precioMoldeDigital;
-        document.getElementById("precioCartulina").value =
-          productoUnico.precioMoldeCartulina;
-        document.getElementById("idCategoria").value =
-          productoUnico.idCategoria;
-        document.getElementById("cantidadTalles").value =
-          productoUnico.cantidadTalles;
+        document.getElementById("precioBase").value = productoUnico.precioMoldeBase;
+        document.getElementById("precioDigital").value = productoUnico.precioMoldeDigital;
+        document.getElementById("precioCartulina").value =productoUnico.precioMoldeCartulina;
+        document.getElementById("idCategoria").value = productoUnico.idCategoria;
         document.getElementById("listado").value = productoUnico.listado;
 
         // manejo de excepciones, levanto la excepcion si hay error y la muestro en consola

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/7a7df7520d.js" crossorigin="anonymous"></script>
-    <title>Lueva Client | Administrador de Ventas</title>
+    <title>Lueva Client | Administrador de Talles </title>
 </head>
 <body>
     <header>
@@ -33,7 +33,7 @@
                     <a class="nav-link" href="stock.html">Stock</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Ventas</a>
+                    <a class="nav-link" href="ventas.html">Ventas</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="gastos.html">Gastos</a>
@@ -45,7 +45,7 @@
                     <a class="nav-link" href="pedidos.html">Pedidos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="tallesProductos.html">Talles</a>
+                    <a class="nav-link active" href="#">Talles</a>
                   </li>
                 </ul>
               </div>
@@ -54,44 +54,54 @@
     </header>
     <main class="mt-5 container">
         <div class="text-center">
-            <h1>Administrador de Ventas</h1>
-            <h5>A través de este portal podés gestionar tus ventas</h5>
+            <h1>Administrador de Talles</h1>
+            <h5>A través de este portal podés gestionar los talles por producto</h5>
         </div>
 
         <section class="mt-5">
-            <form id="agregarVentas" class="row g-3" novalidate>
-                <div class="col-md-4">
+            <form id="agregarTalles" class="row g-3" novalidate>
+                <div class="col-md-6">
                     <input class="form-control d-none" type="text" name="id" id="id">
-                    <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" id="fecha" class="form-control" name="fecha">
-                    <span class="mensaje-error" id="mensajeFecha"></span>
-                </div>
-                <div class="col-md-4">
-                    <label for="idProducto" class="form-label">ID Producto</label>
+                    <label for="idProducto" class="form-label">ID producto</label>
                     <input type="text" id="idProducto" class="form-control" name="idProducto">
                     <span class="text-secondary">Recordá que el id debe ser de un producto existente.</span><br>
-                    <span class="mensaje-error" id="mensajeIdProducto"></span>
+                    <span class="mensaje-error" id="mensajeId"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="talle" class="form-label">Talle</label>
+                    <select id="talle" name="talle" class="form-select" aria-label="Default select example">
+                        <option value="XXS">XXS</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
                 </div>
                 <div class="col-md-4">
-                  <label for="idCliente" class="form-label">ID Cliente</label>
-                  <input type="text" id="idCliente" class="form-control" name="idCliente">
-                  <span class="text-secondary">Recordá que el id debe ser de un cliente existente.</span><br>
-                  <span class="mensaje-error" id="mensajeIdCliente"></span>
-              </div>
-                <div class="col-md-6">
-                    <label for="cantidad" class="form-label">Cantidad</label>
-                    <input type="text" id="cantidad" class="form-control" name="cantidad">
-                    <span class="mensaje-error" id="mensajeCantidad"></span>
+                    <label for="busto" class="form-label">Medida Busto</label>
+                    <input type="text" id="busto" class="form-control" name="busto">
+                    <span class="text-secondary">Las medidas deben ser en cm.</span><br>
+                    <span class="mensaje-error" id="mensajeBusto"></span>
                 </div>
-                <div class="col-md-6">
-                    <label for="precio" class="form-label">Precio Unitario</label>
-                    <input type="text" id="precio" class="form-control" name="precio">
-                    <span class="mensaje-error" id="mensajePrecio"></span>
+                <div class="col-md-4">
+                    <label for="cintura" class="form-label">Medida Cintura</label>
+                    <input type="text" id="cintura" class="form-control" name="cintura">
+                    <span class="text-secondary">Las medidas deben ser en cm.</span><br>
+                    <span class="mensaje-error" id="mensajeCintura"></span>
+                </div>
+                <div class="col-md-4">
+                    <label for="cadera" class="form-label">Medida Cadera</label>
+                    <input type="text" id="cadera" class="form-control" name="cadera">
+                    <span class="text-secondary">Las medidas deben ser en cm.</span><br>
+                    <span class="mensaje-error" id="mensajeCadera"></span>
                 </div>
                 <div class="col-md-12">
                     <input type="reset" value="Limpiar campos"  class="btn btn-primary" id="reset">
-                    <button type="submit" class="btn btn-success">Agregar Venta</button>
+                    <button type="submit" class="btn btn-success">Agregar Talle</button>
                     <p class="d-none mt-2" id="indicador">Modificando...</p>
+                    
                 </div>
             </form>
         </section>
@@ -99,19 +109,16 @@
             <table class="table table-hover">
                 <thead>
                     <tr class="text-center">
-                        <th class="d-none">ID Venta</th>
-                        <th class="p-2">Fecha Venta</th>
+                        <th class="p-2 d-none">ID</th>
                         <th class="p-2">ID Producto</th>
-                        <th class="p-2">Nombre</th>
-                        <th class="p-2">ID Cliente</th>
-                        <th class="p-2">Nombre Cliente</th>
-                        <th class="p-2">Cantidad</th> 
-                        <th class="p-2">Precio Unitario</th>
-                        <th class="p-2">Total</th>
+                        <th class="p-2">Talle</th>
+                        <th class="p-2">Medida Busto</th>
+                        <th class="p-2">Medida Cintura</th>
+                        <th class="p-2">Medida Cadera</th>
                         <th class="p-2">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="bodyTableVentas" class="text-center table-group-divider">
+                <tbody id="bodyTableTalles" class="text-center table-group-divider">
 
                 </tbody>
             </table>
@@ -138,8 +145,8 @@
         });
       </script>
     <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/get_delete_modificar/ventas.js"></script>
-    <script src="../js/post_put/ventas.js"></script>
+    <script src="../js/get_delete_modificar/tallesProductos.js"></script>
+    <script src="../js/post_put/tallesProductos.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

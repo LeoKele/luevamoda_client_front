@@ -42,7 +42,10 @@
                     <a class="nav-link" href="pages/clientes.html">Clientes</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pedidos.html">Pedidos</a>
+                    <a class="nav-link" href="pages/pedidos.html">Pedidos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="pages/tallesProductos.html">Talles</a>
                   </li>
                 </ul>
               </div>
@@ -69,24 +72,6 @@
                     <span class="mensaje-error" id="mensajeNombre"></span>
                 </div>
                 <div class="col-md-4">
-                    <label for="busto" class="form-label">Medida Busto</label>
-                    <input type="text" id="busto" class="form-control" name="busto">
-                    <span class="text-secondary">Recordá que las medidas son en cm.</span><br>
-                    <span class="mensaje-error" id="mensajeBusto"></span>
-                </div>
-                <div class="col-md-4">
-                    <label for="cintura" class="form-label">Medida Cintura</label>
-                    <input type="text" id="cintura" class="form-control" name="cintura">
-                    <span class="text-secondary">Recordá que las medidas son en cm.</span><br>
-                    <span class="mensaje-error" id="mensajeCintura"></span>
-                </div>
-                <div class="col-md-4">
-                    <label for="cadera" class="form-label">Medida Cadera</label>
-                    <input type="text" id="cadera" class="form-control" name="cadera">
-                    <span class="text-secondary">Recordá que las medidas son en cm.</span><br>
-                    <span class="mensaje-error" id="mensajeCadera"></span>
-                </div>
-                <div class="col-md-4">
                     <label for="precioBase" class="form-label">Precio Molde Base</label>
                     <input type="text" id="precioBase" class="form-control" name="precioBase">
                     <span class="mensaje-error" id="mensajePrecioBase"></span>
@@ -101,18 +86,13 @@
                     <input type="text" id="precioCartulina" class="form-control" name="precioCartulina">
                     <span class="mensaje-error" id="mensajePrecioCartulina"></span>
                 </div>
-                <div class="col-md-3">
-                    <label for="cantidadTalles" class="form-label">Cantidad de Talles</label>
-                    <input type="text" id="cantidadTalles" class="form-control" name="cantidadTalles">
-                    <span class="mensaje-error" id="mensajeCantidadTalles"></span>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="idCategoria" class="form-label">ID Categoria</label>
                     <input type="text" id="idCategoria" class="form-control" name="idCategoria">
                     <span class="text-secondary">Recordá que el id debe ser de una categoria existente.</span><br>
                     <span class="mensaje-error" id="mensajeCategoria"></span>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="listado" class="form-label">Listado</label>
                     <input type="text" id="listado" class="form-control" name="listado">
                     <span class="text-secondary">Recordá que 0 es falso y 1 es verdadero.</span><br>
@@ -131,16 +111,13 @@
             </div>
         </section>
         <section class="my-5">
-            <table class="table table-hover">
+            <table class="table table-hover ">
                 <thead>
                     <tr class="text-center">
                         <th class="p-2">ID</th>
                         <th class="p-2">Cliente</th>
                         <th class="p-2">Nombre</th>
-                        <th class="p-2">ID Categoria</th>
-                        <th class="p-2">Medida Busto</th> 
-                        <th class="p-2">Medida Cintura</th> 
-                        <th class="p-2">Medida Cadera</th> 
+                        <th class="p-2">ID Categoria</th> 
                         <th class="p-2">Precio Base</th>
                         <th class="p-2">Precio Digital</th>
                         <th class="p-2">Precio Cartulina</th>
@@ -149,7 +126,7 @@
                         <th class="p-2">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="bodyTableProductos" class="text-center">
+                <tbody id="bodyTableProductos" class="text-center table-group-divider">
 
                 </tbody>
             </table>
