@@ -161,8 +161,6 @@ function agregarEventosBotones() {
                 document.getElementById("cadera").value = talleUnico.medidaCadera;
             } catch (error) {
                 console.error("Error:", error);
-            } finally {
-                indicador.classList.add("d-none");
             }
         });
     });
