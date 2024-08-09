@@ -4,27 +4,40 @@ formNuevaCategoria.addEventListener("submit", async (event)=>{
   event.preventDefault();
 
   var errorDescripcion = document.getElementById("mensajeDescripcion");
+  var errorListado = document.getElementById("mensajeListado");
+
   errorDescripcion.textContent = "";
+  errorListado.textContent = "";
 
   const formData = new FormData(formNuevaCategoria);
   const id = formData.get("id");
   const descripcion = formData.get("descripcion");
+  const listado = formData.get("listado");
+
 
   //comprobamos que no este vacio
   const descripcionValido = stringVacio(descripcion);
+  const listadoValido = esTiny(listado);
 
 
-    if (descripcionValido){
-        errorDescripcion.textContent = "Por favor, completa este campo.";
-        return;
 
-    }
+  if (descripcionValido || !listadoValido){
+    errorDescripcion.textContent = !descripcionValido
+    ? ""
+    :"Por favor, completa este campo.";
+    errorListado.textContent = listadoValido
+    ? ""
+    : "Por favor, ingrese un número válido";
+    return;
+
+}
 
     let url = "http://localhost:8080/api_lueva/categorias";
     let method = 'POST';
 
     const categoriaData = {
-      descripcion: descripcion
+      descripcion: descripcion,
+      listado: listado
     };
 
     if (id){
@@ -100,6 +113,15 @@ formNuevaCategoria.addEventListener("submit", async (event)=>{
 
 function stringVacio(string){
     if (string === '') return true;
+}
+
+function esTiny(numero) {
+  const valorNumerico = parseFloat(numero); // Convierte el valor a número
+  if (!isNaN(valorNumerico) && Number.isInteger(valorNumerico) && (valorNumerico === 0 || valorNumerico === 1)) {
+      return true;
+  } else {
+      return false;
+  }
 }
 
   //limpio campos
