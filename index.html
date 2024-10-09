@@ -45,7 +45,7 @@
                     <a class="nav-link" href="pages/pedidos.html">Pedidos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/tallesProductos.html">Talles</a>
+                    <a class="nav-link disabled" href="pages/tallesProductos.html">Talles</a>
                   </li>
                 </ul>
               </div>
@@ -63,7 +63,7 @@
                 <div class="col-md-6">
                     <input class="form-control d-none" type="text" name="id" id="id">
                     <label for="cliente" class="form-label">Cliente Producto</label>
-                    <input type="text" id="cliente" class="form-control" name="cliente">
+                    <input type="text" id="cliente" class="form-control" name="cliente" value="-">
                     <span class="mensaje-error" id="mensajeCliente"></span>
                 </div>
                 <div class="col-md-6">
@@ -74,16 +74,17 @@
                 <div class="col-md-4">
                     <label for="precioBase" class="form-label">Precio Molde Base</label>
                     <input type="text" id="precioBase" class="form-control" name="precioBase">
+                    <span class="text-secondary">Precio que se vé en la página web.</span><br>
                     <span class="mensaje-error" id="mensajePrecioBase"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="precioDigital" class="form-label">Precio Molde Digital</label>
-                    <input type="text" id="precioDigital" class="form-control" name="precioDigital">
+                    <input type="text" id="precioDigital" class="form-control" name="precioDigital" value="0">
                     <span class="mensaje-error" id="mensajePrecioDigital"></span>
                 </div>
                 <div class="col-md-4">
                     <label for="precioCartulina" class="form-label">Precio Molde Cartulina</label>
-                    <input type="text" id="precioCartulina" class="form-control" name="precioCartulina">
+                    <input type="text" id="precioCartulina" class="form-control" name="precioCartulina" value="0">
                     <span class="mensaje-error" id="mensajePrecioCartulina"></span>
                 </div>
                 <div class="col-md-4">
@@ -94,7 +95,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="listado" class="form-label">Listado</label>
-                    <input type="text" id="listado" class="form-control" name="listado">
+                    <input type="text" id="listado" class="form-control" name="listado" value="1">
                     <span class="text-secondary">Recordá que 0 es falso y 1 es verdadero.</span><br>
                     <span class="mensaje-error" id="mensajeListado"></span>
                 </div>
@@ -122,7 +123,7 @@
                         <th class="p-2">Precio Base</th>
                         <th class="p-2">Precio Digital</th>
                         <th class="p-2">Precio Cartulina</th>
-                        <th class="p-2">Cantidad Talles</th>
+                        <th class="p-2 d-none">Cantidad Talles</th>
                         <th class="p-2 d-none">Listado</th>
                         <th class="p-2">Acciones</th>
                     </tr>

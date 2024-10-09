@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
     tdAccion.classList.add("p-2");
 
     const btnModificar = document.createElement("a");
-    btnModificar.href = '#agregarProductos';
+    btnModificar.href = '#agregarCategorias';
     btnModificar.type = "submit";
     btnModificar.classList.add("btn", "btn-warning", "my-1", "mx-1","btnModificar");
     btnModificar.innerHTML = "Modificar";

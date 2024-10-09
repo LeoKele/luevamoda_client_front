@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     tr.appendChild(tdPrecioBase);
     tr.appendChild(tdPrecioDigital);
     tr.appendChild(tdPrecioCartulina);
-    tr.appendChild(tdTalles);
+    // tr.appendChild(tdTalles); 
     tr.appendChild(tdListado);
     tr.appendChild(tdAccion);
     //Añadimos el tr al tbody
